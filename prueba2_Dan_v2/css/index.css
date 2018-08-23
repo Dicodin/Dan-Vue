@@ -1,0 +1,205 @@
+body{
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:400;
+	font-size:16px;
+	margin: 0;
+}
+
+.header{
+	width: 100%;
+	height: auto;
+	position:fixed;
+	z-index:1;
+	background: #000;
+	color: #FFF;
+	margin: 0;
+	border: none;
+	padding-top: 35px;
+}
+
+.icono-vue{
+	font-size: 40px; 
+	position: relative; 
+	float: left; 
+	bottom: 30px; 
+	left: 10px;
+}
+
+.inputTxt {
+	text-align: center;
+	color:#FFF;
+	margin: 0 0 40px 0;
+}
+
+.inputTxt > span {
+	margin: 0 30px 0 30px;
+}
+
+.inputTxt > input[type="text"]{
+	border: solid 1px #FFF;
+	background-color:transparent;
+	color:#FFF;
+	padding: 5px 15px;
+	outline: none;
+	width: 220px;
+	font-size:14px;
+}
+
+.contenedor-tabla{
+	padding-top: 115px;
+}
+
+.tabla, .navegacion{
+	width: 90%;
+	margin: 0 5% 0 5%;
+}
+
+.tabla input[type="text"], 
+.tabla textarea{
+	border: none;
+	font-family: Verdana;
+	font-size:  11px;
+	width: 100%;
+	background: transparent;
+	text-align: center;
+	transition: all ease 0.7s;
+} 
+	.tabla input[type="text"]:hover,
+	.tabla textarea:hover{
+		background: aquamarine;
+		transition: all ease 0.7s;
+	} 
+
+.encabezados{
+	color: #FFF;
+	background: #353535;
+	height: 35px;
+}
+
+.encabezados td {
+	padding: 0;
+	margin: 0;
+	text-align: center;
+}
+
+.nuevo{
+	background: mediumaquamarine;
+}
+
+.fila{
+	font-family: Verdana;
+	font-size: 11px;
+}
+
+.mod{
+	background: #CFCFCF;
+}
+
+.navegacion{
+}
+
+.boton{
+	cursor: pointer;
+}
+
+.nav{
+	font-size: 25px;
+	position: relative;
+	top: 3px;
+	padding: 0 5px;
+}
+
+.inputTxt-reg{
+	border: solid 1px #708090;
+	padding-left: 13px;
+	color: #708090;
+}
+
+.etiqueta-1{
+	margin: 0 25px;
+}
+
+.etiqueta-2{
+	margin-right: 25px;
+}
+
+.btn-editar{
+	font-size: 24px;
+	cursor: pointer;
+}
+
+.overlay{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	z-index: 2;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	color: #FFF;
+	opacity: 0.7;
+}
+
+.modal{
+	position: fixed;
+	width: 50%;
+	height: 50%;	
+	background: #000;
+	z-index: 3;
+	top: 25%;
+	bottom: 0;
+	left: 25%;
+	right: 0;
+	color: #FFF;
+	opacity: 1;
+}
+
+.contenedor-detalle{
+	margin: 30px 0 0 30px;
+}
+
+.c1{
+	width: 50px;
+	position: absolute;
+}
+
+.c2{
+	width: 70%; 
+	position: relative;
+	left: 55px;
+	margin: 15px 0;
+}
+
+.c2 input[type="text"], 
+.c2 textarea{
+	border: solid 1px #FFF;
+	font-family: Verdana;
+	font-size:  11px;
+	width: 100%;
+	color: #FFF;
+	background: transparent;	
+}
+
+.btn-cerrar{
+	position: relative;
+	float: right;	
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.btn-editar-guardar{
+	font-size: 24px;
+	cursor: pointer;
+	position: relative;
+	float: right;
+	right: 35px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>VUEjs - Paginación - API (Posts)</title>
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/fontawesome-all.min.css">
+	<script src="lib/vue.js"></script>
+	<script src="lib/axios.min.js"></script>
+</head>
+<body>
+	<div id="main">
+		
+		<header class='header'>
+			<div class="icono-vue"><i class="fab fa-vuejs"></i></div>
+			<div class='inputTxt'>
+				<span>Buscar</span>
+				<input type='text' placeholder="Buscar..." v-model="cadena_busqueda" v-on:keyup="paginaInicial"/>
+				<span>Coincidencias: {{ buscaRegistro.length }}</span>
+			</div>
+		</header>
+		
+		<div class="contenedor-tabla">
+			<div class="navegacion">
+				<span>Registros: {{ total_registros }}</span>
+				<span class="etiqueta-1">Páginas: {{ paginasCoincidencia }}</span>
+				<span class="etiqueta-2">Página: {{ pagina }}</span>
+				<span v-on:click="paginaInicial" class="boton"><i class="fas fa-step-backward"></i></span>
+				<span v-on:click="paginaAnterior" class="boton nav"><i class="fas fa-caret-left"></i></span>
+				<span v-on:click="siguientePagina" class="boton nav"><i class="fas fa-caret-right"></i></span>				
+				<span v-on:click="paginaFinal" class="boton"><i class="fas fa-step-forward"></i></span>
+				<span class="etiqueta-1">Registros por página: <input type="text" v-model="tamano_pagina" v-on:keyup="validaTamanoPagina" v-on:keydown="soloNumeros" size="3" class="inputTxt-reg" v-bind:maxlength="longitud_maxima" /></span>
+			</div>
+			<table class="tabla" cellpadding="5" cellspacing="0">
+				<thead class="encabezados">
+					<td v-for="value in encabezados">
+						{{ value }}
+					</td>
+				</thead>
+				<tr class="nuevo fila">
+					<td>Nuevo</td>
+					<td><textarea v-bind:id="nuevo_registro.id_campo_name" v-bind:placeholder="nuevo_registro.placeholder_name" v-model="name_registro"></textarea></td>
+					<td><input type="text" v-bind:id="nuevo_registro.id_campo_email" v-bind:placeholder="nuevo_registro.placeholder_email"></td>
+					<td><textarea v-bind:id="nuevo_registro.id_campo_body" v-bind:placeholder="nuevo_registro.placeholder_body"></textarea></td>
+					<td><span v-bind:id="nuevo_registro.btnGuardar" v-on:click="guardaRegistro" class="btn-editar"><i class="far fa-save"></i></span></td>
+				</tr>
+				<tr v-for="(items, index) in buscaRegistro" v-if="(index % 2)" class="fila mod">
+					<td v-for="(value, key) in items" v-show="key != 'postId' && navegaEnPaginas(index)">							
+						<span>
+							{{ value }}
+						</span>
+					</td>
+					<td v-if="navegaEnPaginas(index)">
+						<span v-bind:id="'btnEditar'+items.id" v-on:click="actualizaRegistro(items.id)" class="btn-editar"><i class="far fa-edit"></i></span>
+					</td>
+				</tr>
+				<tr class="fila" v-else>
+					<td v-for="(value, key) in items" v-if="key != 'postId' && navegaEnPaginas(index)">						
+						<span>
+							{{ value }}
+						</span>
+					</td>
+					<td v-if="navegaEnPaginas(index)">
+						<span v-bind:id="'btnEditar'+items.id" v-on:click="actualizaRegistro(items.id)" class="btn-editar"><i class="far fa-edit"></i></span>
+					</td>
+				</tr>				
+			</table>
+		</div>
+		<transition name="fade">
+			<div class="overlay" v-show="muestra_detalle == true" v-on:click="toggleDetalle"></div>							
+		</transition>
+		<transition name="fade">
+			<div class="modal" v-show="muestra_detalle == true">				
+				<span v-on:click="toggleDetalle" class="btn-cerrar"><i class="far fa-window-close"></i></span>
+				<div class="contenedor-detalle">					
+					<div v-for="(value, key) in contenido[index_registro]">				
+						<template v-if="key != 'id' && key != 'postId'">
+							<template v-if="key == 'body'">
+								<div class="c1">{{ key }}:</div> 
+								<div class="c2">
+									<textarea v-bind:id="'txt'+key+id_registro" rows="3">{{ value }}</textarea>
+								</div>
+							</template>
+							<template v-else>
+								<div class="c1">{{ key }}:</div> 
+								<div class="c2">
+									<input type="text" v-bind:id="'txt'+key+id_registro" v-bind:value="value">
+								</div>
+							</template>
+						</template>
+						<span v-else>
+							<div class="c1">{{ key }}:</div>
+							<div class="c2">{{ value }}</div>
+						</span>
+					</div>
+				</div>
+				<span class="btn-editar-guardar"><i class="far fa-save"></i></span>				
+			</div>			
+		</transition>
+		<!-- <div>
+			<pre>{{ $data.contenido_pagina }}</pre>
+		</div> -->
+	</div>
+</body>
+	<script src="apis/apis.js"></script>
+	<script src="js/index.js"></script>
+	<script src="componentes/componentes.js"></script>
+</html>
