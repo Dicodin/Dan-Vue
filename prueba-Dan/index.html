@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>VUEjs - API (Claro Video)</title>
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<script src="lib/vue.js"></script>
+	<script src="lib/axios.min.js"></script>
+</head>
+<body>
+	<div id="main" v-on:click="toggleDetalle">
+		
+		<header class='header'>
+			<div class='inputTxt'>
+				<span>Buscar</span>
+				<input type='text' placeholder="Buscar por título..." v-model="nombre"/>
+			</div>
+		</header>
+		
+		<div class='divGrid'>
+			<div v-for="pelicula in buscaPelicula">
+				<img v-bind:src="pelicula.image_medium" v-bind:title="pelicula.title" v-on:click="obtieneDetalle(pelicula.id); toggleDetalle">
+				<transition name="fade">					
+					<div class="overlay" v-show="pelicula.id === detalle.id" v-bind:style="{ background: 'url(' + detalle.image_background + ') no-repeat top' }">
+						<div class="detalle">
+							<detalles v-bind:pelicula="pelicula" v-bind:varios="detalle_varios" v-bind:generos="detalle_genre" v-bind:roles="detalle_role"></detalles>
+						</div>
+					</div>
+				</transition>
+			</div>
+		</div>
+
+	</div>
+</body>
+	<script src="apis/apis.js"></script>
+	<script src="js/index.js"></script>
+	<script src="componentes/componentes.js"></script>
+</html>
