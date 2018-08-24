@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>v-if : v-else : template</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+</head>
+<body>
+	<!-- 
+	*v-if, v-else: directiva condicinal... 
+	*template: bloque completo de HTML (que en éste caso usará una sóla condición)...
+	*En éste ejemplo se muestra condicionalmente el bloque HTML dentro del "template" si el dato "mensaje" contiene algo, de lo contrario mostrará un texto diferente (v-else).
+	-->
+	<div id="main">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-5">
+					<template v-if="!mensaje">
+						<h3>Escribe tu sugerencia</h3>
+						<p>El quipo de soporte responde en máxio 24 horas</p>
+						<p><em>Podrías utilizar Twitter para comunicarte</em></p>
+					</template>
+					<h3 v-else> Presiona Enter para enviar</h3>
+					<textarea v-model="mensaje" class="form-control"></textarea>
+				</div>
+				<div class="col-md-7">
+					<h3>JSON</h3>
+					<pre>
+						{{ $data }}
+					</pre>
+				</div>
+			</div>
+			
+		</div>
+		
+	</div>
+	
+	<script src="vue.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el: '#main',
+			data: {
+				mensaje: ''
+			}
+		});
+	</script>
+</body>
+</html>

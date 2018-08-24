@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>v-show</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+</head>
+<body>
+	<!-- 
+	*Directiva: es lo que usamos para que las etiquetas o elementos HTML hagan algo... 
+	*v-show: se usa para mostrar condicionalmente algo...
+	*En éste ejemplo se muestra condicionalmente el botón si el dato "email" contiene algo...
+	-->
+	<div id="main">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h3>Suscríbete a nuestro boletín</h3>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<input type="text" v-model="email" class="form-control">
+			</div>
+			<div class="col-md-1">
+				<input type="submit" v-show="email" class="btn btn-primary">
+			</div>
+		</div>
+	</div>
+
+	<script src="vue.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el: '#main',
+			data: {
+				email: ''
+			}
+		});
+	</script>
+</body>
+</html>

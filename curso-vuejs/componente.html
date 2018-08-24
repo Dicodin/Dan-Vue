@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>componente</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+</head>
+<body>
+	<!-- 
+	*Componentes: son bloques de HTML cuyo objetivo es ser reutilizados...
+	-->
+	<div id="main" class="container">
+		<div class="row">
+			<div class="col-sm-4">
+				<h1>Albums</h1>
+				<lista-comun v-bind:lista="albums"></lista-comun>
+			</div>
+			<div class="col-sm-4">
+				<h1>Posts</h1>
+				<lista-comun v-bind:lista="posts"></lista-comun>
+			</div>
+			<div class="col-sm-4">
+				<h1>Photos</h1>
+				<lista-comun v-bind:lista="photos"></lista-comun>
+			</div>
+			<div class="col-sm-12">
+				<h1>JSON</h1>
+				<pre>
+					{{ $data }}
+				</pre>
+			</div>
+		</div>
+	</div>
+
+	<script src="vue.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.min.js"></script>
+	<script type="text/javascript">
+		
+		Vue.component('lista-comun',{
+			props : ['lista'],
+			template : `<ul class="list-group">
+							<li v-for="item in lista" class="list-group-item">
+								{{ item.title }}
+							</li>
+						</ul>`,
+		});
+
+		var urlPosts = 'https://jsonplaceholder.typicode.com/posts';
+		var urlAlbums = 'https://jsonplaceholder.typicode.com/albums';
+
+		new Vue({
+			el: '#main',
+			//Esta es la etapa de creación (ciclo de vida del objeto "Vue") y se ejecutan los métodos "getPosts" y "getAlbums" en dicha etapa...
+			created: function(){
+				this.getPosts(),
+				this.getAlbums()
+			},
+			data: {
+				posts: [],
+				albums: [],
+				photos: [
+					{title: 'foto 1'},
+					{title: 'foto 2'},
+				]
+			},
+			methods: {
+				getPosts: function(){
+					axios.get(urlPosts).then(response => { this.posts = response.data });
+				},
+				getAlbums: function(){
+					axios.get(urlAlbums).then(response => { this.albums = response.data });
+				}
+			}
+		});
+	</script>
+</body>
+</html>

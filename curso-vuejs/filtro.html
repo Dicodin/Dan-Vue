@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>filtro</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+</head>
+<body>
+	<!-- 
+	*AXIOS: es la alternativa a "vue-resource" recomendada por VUE.js y también se usa para consumir API's por medio de AJAX...
+	-->
+	<div id="main" class="container">
+		<div class="row">
+			<div class="col-sm-4">
+				<h1>VUE.js - Filtros</h1>
+				<button class="btn btn-primary" v-on:click="obtieneUsuario" v-if="!lista.length">Listar</button>
+				<ul class="list-group" v-else>
+					<li class="list-group-item">
+						<input type="text" placeholder="Buscar" class="form-control" v-model="nombre">
+					</li>
+					<!--Buscamos el "item" en la propiedad computada "buscarUsuario"-->
+					<li class="list-group-item" v-for="item in buscarUsuario">{{ item.name }}</li>
+				</ul>
+			</div>
+			<div class="col-sm-8">
+				<h1>JSON</h1>
+				<pre>
+					<!-- Esto es para mostrar "data" en formato JSON -->
+					{{ $data }}
+				</pre>
+			</div>
+		</div>
+	</div>
+
+	<script src="vue.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.min.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el: '#main',
+			data: {
+				lista: [],
+				nombre: ''
+			},
+			methods: {
+				obtieneUsuario: function(){
+					//Método AXIOS
+					//var urlUsuarios = 'https://randomuser.me/api/?results=10';
+					var urlUsuarios = 'https://jsonplaceholder.typicode.com/users';
+					//var urlUsuarios = 'https://mfwkweb-api.clarovideo.net//services/content/list?api_version=v5.5&authpn=webclient&authpt=tfg1h3j4k6fd7&format=json&region=mexico&device_id=web&device_category=web&device_model=web&device_type=web&device_manufacturer=generic&HKS=khsembrg6lit9mneq24kb72bj7&quantity=40&order_way=DESC&order_id=200&level_id=GPS&from=0&node_id=9869'; 
+					axios.get(urlUsuarios).then(response => {
+						this.lista = response.data
+					});
+				}
+			},
+			//Las propiedades computadas (computed) son cualquier propiedad que incluye lógica, en éste caso se incluyó lógica para el filtrado de la propiedad "nombre" en "lista"...
+			computed: {
+				buscarUsuario: function(){
+					//Con esto comporbamos si lo que tiene la propiedad "nombre" lo incluye el elemento "name" de la "lista"...
+					return this.lista.filter(item => item.name.includes(this.nombre));
+				}
+			}
+		});
+	</script>
+</body>
+</html>

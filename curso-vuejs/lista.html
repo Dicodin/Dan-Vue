@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Listas</title>
+</head>
+<body>
+	<!-- 
+	*v-for: se usa para hacer un barrido de un arreglo...
+	*v-model: se usa para hacer referencia al dato que en éste caso se encargará de agregar elementos a un arreglo...
+	*En éste ejemplo se usa para hacer referencia al dato "nombre" que se encargará de agregar elementos al arreglo "amigos".
+	-->
+	<div id="main">
+		<ul>
+			<li v-for="amigo in amigos">{{ amigo }}</li>
+		</ul>
+		<input type="text" v-model="nombre" v-on:keyup.enter="agregaNombre">
+	</div>
+
+	<script type="text/javascript" src="vue.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el: '#main',
+			data: {
+				amigos: ['Princi','Dipo','Galleta','Jade']
+			},
+			nombre: '',
+			methods: {
+				//Método para agregar el dato "nombre" al arreglo "amigos".
+				agregaNombre: function(){
+					this.amigos.push(this.nombre);
+					this.nombre = '';
+				}
+			}
+		});
+	</script>
+</body>
+</html>

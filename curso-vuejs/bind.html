@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>v-bind</title>
+	<!--
+		*v-bind: sirve para enlazar y modificar el contenido de un atributo...
+		*En éste ejemplo "title" (el tooltip) se enlaza el dato "info" al atributo "title".
+	-->
+</head>
+<body>
+	<div id="main">
+		<input type="text" v-model="info">
+		<p v-bind:title='info'>Texto de relleno... {{ info }}</p>
+	</div>
+
+	<script type="text/javascript" src="vue.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el: '#main',
+			data: {
+				info: ''
+			}
+		});
+	</script>
+</body>
+</html>
